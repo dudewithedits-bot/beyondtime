@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if device is mobile
+    const isMobile = window.innerWidth < 768;
+
     // Dynamic Video CDN Configuration for Vercel / Production
     const CONFIG = {
         // Change this URL to your actual CDN or hosted folder (Vercel Blob, AWS S3, Cloudinary, etc.)
@@ -280,7 +283,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollContainer = document.getElementById('scroll-container');
     
     function updateNavbar() {
-        const scrollThreshold = scrollContainer.scrollHeight - window.innerHeight - 50;
+        let scrollThreshold;
+        if (isMobile) {
+            scrollThreshold = 50;
+        } else {
+            scrollThreshold = scrollContainer.scrollHeight - window.innerHeight - 50;
+        }
         if (window.scrollY > scrollThreshold) {
             nav.classList.add('scrolled');
         } else {
@@ -514,6 +522,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Start preloading
-    preloadImages();
+    // Mobile Menu Toggle Control
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+    if (menuToggle && mobileMenuOverlay) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            });
+        });
+    }
+
+    // Initialize based on viewport
+    if (isMobile) {
+        // Skip canvas preloading on mobile, instantly load rest of page assets
+        if (preloader) {
+            preloader.classList.add('loaded');
+        }
+        
+        updateNavbar();
+        
+        // Simpler mobile scroll listener
+        window.addEventListener('scroll', () => {
+            updateNavbar();
+        }, { passive: true });
+    } else {
+        // Start preloading desktop canvas frames
+        preloadImages();
+    }
 });
