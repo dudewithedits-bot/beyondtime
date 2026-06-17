@@ -150,11 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
             x = (canvasWidth - drawWidth) / 2;
             y = 0;
         } else {
-            // Screen is taller than image aspect ratio: scale by width
-            drawWidth = canvasWidth;
-            drawHeight = canvasWidth / imgRatio;
-            x = 0;
-            y = (canvasHeight - drawHeight) / 2;
+            // Screen is taller than image aspect ratio (portrait viewports / mobile)
+            if (isMobile) {
+                // Zoom in slightly on mobile to make the black space shorter
+                drawWidth = canvasWidth * 1.6;
+                drawHeight = drawWidth / imgRatio;
+                x = (canvasWidth - drawWidth) / 2;
+                y = (canvasHeight - drawHeight) / 2;
+            } else {
+                // Standard contain scaling
+                drawWidth = canvasWidth;
+                drawHeight = canvasWidth / imgRatio;
+                x = 0;
+                y = (canvasHeight - drawHeight) / 2;
+            }
         }
         
         ctx.drawImage(img, x, y, drawWidth, drawHeight);
@@ -543,21 +552,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Initialize based on viewport
-    if (isMobile) {
-        // Skip canvas preloading on mobile, instantly load rest of page assets
-        if (preloader) {
-            preloader.classList.add('loaded');
-        }
-        
-        updateNavbar();
-        
-        // Simpler mobile scroll listener
-        window.addEventListener('scroll', () => {
-            updateNavbar();
-        }, { passive: true });
-    } else {
-        // Start preloading desktop canvas frames
-        preloadImages();
-    }
+    // Initialize
+    preloadImages();
 });
