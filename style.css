@@ -1460,10 +1460,57 @@ body.no-scroll {
         bottom: auto !important;
     }
     
-    /* Bottom Black Space Elements (Phase 4, 5) */
-    #text-phase-4, #text-phase-5 {
-        top: auto !important;
+    /* Phase 4 Split: Cinematic Color at Top, Sound Design at Bottom */
+    #text-phase-4 {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        background: none !important;
+        border: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    #text-phase-4 .split-col-left, #text-phase-4 .split-col-right {
+        position: absolute !important;
+        width: calc(100% - 40px) !important;
+        max-width: 580px !important;
+        padding: 20px 30px !important;
+        background: rgba(19, 19, 19, 0.45) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border-radius: 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        align-items: center !important;
+        text-align: center !important;
+        left: 20px !important;
+    }
+    
+    #text-phase-4 .split-col-left {
+        top: 90px !important;
+        bottom: auto !important;
+    }
+    
+    #text-phase-4 .split-col-right {
         bottom: 90px !important;
+        top: auto !important;
+    }
+    
+    /* Phase 5: Center "Let's Tell Your Story" Card on Laptop screen */
+    #text-phase-5 {
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        background: rgba(19, 19, 19, 0.65) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        padding: 25px 30px !important;
+        max-width: 320px !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
     }
 }
 
