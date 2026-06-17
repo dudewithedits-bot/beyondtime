@@ -1,4 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Dynamic Video CDN Configuration for Vercel / Production
+    const CONFIG = {
+        // Change this URL to your actual CDN or hosted folder (Vercel Blob, AWS S3, Cloudinary, etc.)
+        cdnBaseUrl: 'https://beyond-timelines-assets.vercel.app/videos/'
+    };
+
+    const isProduction = !['localhost', '127.0.0.1'].includes(window.location.hostname);
+
+    if (isProduction) {
+        // Update static video elements src to point to CDN
+        document.querySelectorAll('video').forEach(video => {
+            const currentSrc = video.getAttribute('src');
+            if (currentSrc && !currentSrc.startsWith('http') && !currentSrc.startsWith('blob')) {
+                video.src = CONFIG.cdnBaseUrl + currentSrc;
+            }
+        });
+
+        // Update portfolio items data-video attributes to point to CDN
+        document.querySelectorAll('[data-video]').forEach(item => {
+            const currentVideo = item.getAttribute('data-video');
+            if (currentVideo && !currentVideo.startsWith('http') && !currentVideo.startsWith('blob')) {
+                item.setAttribute('data-video', CONFIG.cdnBaseUrl + currentVideo);
+            }
+        });
+    }
+
     const canvas = document.getElementById('animation-canvas');
     const ctx = canvas.getContext('2d');
     const preloader = document.getElementById('preloader');
