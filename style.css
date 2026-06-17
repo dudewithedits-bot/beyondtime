@@ -1501,16 +1501,18 @@ body.no-scroll {
         top: auto !important;
     }
     
-    /* Phase 5: Center "Let's Tell Your Story" Card on Laptop screen */
+    /* Phase 5: Center "Let's Tell Your Story" Card on Laptop screen (No tinted window background) */
     #text-phase-5 {
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        background: rgba(19, 19, 19, 0.65) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        padding: 25px 30px !important;
+        background: none !important;
+        border: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        padding: 0 !important;
         max-width: 320px !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+        box-shadow: none !important;
     }
 }
 
