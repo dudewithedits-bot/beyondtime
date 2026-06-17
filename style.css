@@ -1259,12 +1259,7 @@ footer {
 #modal-video::-internal-media-controls-download-button {
     display: none !important;
 }
-#modal-video::-webkit-media-controls-enclosure {
-    overflow: hidden !important;
-}
-#modal-video::-webkit-media-controls-panel {
-    width: calc(100% + 30px); /* Hide download button via overflow fallback if needed */
-}
+
 
 /* ── DARK THEME OVERRIDES & CONTRAST FIXES ── */
 /* 1. Play Button Contrast */
